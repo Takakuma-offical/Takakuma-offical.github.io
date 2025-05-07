@@ -7,38 +7,82 @@
     body {
       margin: 0;
       padding: 0;
-      height: 100vh;
+      min-height: 200vh; /* スクロール可能にする */
+      font-family: sans-serif;
+      background: url('Background.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .section {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-family: sans-serif;
-      background: url('Background.png') no-repeat center center fixed;
-      background-size: cover; /* ディスプレイに合わせて拡大縮小 */
+      height: 100vh;
+      text-align: center;
     }
 
     h1 {
       margin-bottom: 20px;
+      color: white;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
     }
 
-    .download-button {
+    .download-button, .button {
       padding: 12px 24px;
       font-size: 16px;
       color: white;
-      background-color: #28a745; /* 緑色 */
       border: none;
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
+      margin: 10px;
+    }
+
+    .download-button {
+      background-color: #28a745;
     }
 
     .download-button:hover {
-      background-color: #218838; /* ホバー時の色 */
+      background-color: #218838;
+    }
+
+    .button {
+      padding: 50px 200px; /* 縦：20px、横：60px に拡大 */
+      font-size: 20px;     /* 文字サイズを大きく */
+      color: white;
+      background-color: #7d7d7d;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 10px;
+    }
+
+    .button:hover {
+      background-color: #5e5e5e;
+    }
+
+    .news-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
-  <h1>きれいな戦闘が残る</h1>
-  <a href="Download.html" class="download-button" >今すぐダウンロード</a>
+
+  <!-- 上部セクション -->
+  <div class="section">
+    <h1>Let's Go!</h1>
+    <a href="Download.html" class="download-button">今すぐダウンロード</a>
+  </div>
+
+  <!-- スクロール後のセクション -->
+  <div class="news-section">
+    <a href="News.html" class="button">                            News                            </a>
+  </div>
+
 </body>
 </html>
