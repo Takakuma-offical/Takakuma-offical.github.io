@@ -1,88 +1,51 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Kuma-FPS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>教育機関様へ</title>
   <style>
-    body {
+    body, html {
+      height: 100%;
       margin: 0;
-      padding: 0;
-      min-height: 200vh; /* スクロール可能にする */
-      font-family: sans-serif;
-      background: url('Background.png') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    .section {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff; /* ← グラデーションを白背景に変更 */
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+    }
+
+    .container {
       text-align: center;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      color: white;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
-    }
-
-    .download-button, .button {
-      padding: 12px 24px;
-      font-size: 16px;
-      color: white;
+    button {
+      background-color: #4f46e5; /* ボタンの色はそのまま維持 */
       border: none;
+      padding: 16px 32px;
       border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      margin: 10px;
-    }
-
-    .download-button {
-      background-color: #28a745;
-    }
-
-    .download-button:hover {
-      background-color: #218838;
-    }
-
-    .button {
-      padding: 50px 200px; /* 縦：20px、横：60px に拡大 */
-      font-size: 20px;     /* 文字サイズを大きく */
+      font-size: 1.25rem;
       color: white;
-      background-color: #7d7d7d;
-      border: none;
-      border-radius: 12px;
       cursor: pointer;
-      text-decoration: none;
-      margin: 10px;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .button:hover {
-      background-color: #5e5e5e;
-    }
-
-    .news-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    button:hover {
+      background-color: #3730a3;
+      box-shadow: 0 6px 20px rgba(55, 48, 163, 0.6);
     }
   </style>
 </head>
 <body>
-
-  <!-- 上部セクション -->
-  <div class="section">
-    <h1>Let's Go!</h1>
-    <a href="Download.html" class="download-button">今すぐダウンロード</a>
+  <div class="container">
+    <button id="downloadBtn">申し込み（無料）</button>
   </div>
 
-  <!-- スクロール後のセクション -->
-  <div class="news-section">
-    <a href="News.html" class="button">                            News                            </a>
-  </div>
-
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      window.location.href = 'From.html';
+    });
+  </script>
 </body>
 </html>
