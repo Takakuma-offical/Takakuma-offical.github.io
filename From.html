@@ -44,26 +44,12 @@
   </style>
 </head>
 <body>
-
-  <div class="form-container">
-    <h2>お問い合わせ</h2>
-    <form action="https://formsubmit.co/takakuma126@gmail.com" method="POST">
-
-      <input type="hidden" name="_subject" value="新しいお問い合わせが届きました！">
-      <input type="hidden" name="_next" value="https://takakuma-offical.github.io/thanks.html">
-
-      <label for="name">お名前</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">メールアドレス</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="message">メッセージ</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit">送信する</button>
-    </form>
-  </div>
-
+  <h2>お問い合わせフォーム</h2>
+  <form name="contact" method="POST" data-netlify="true">
+    <label>名前: <input type="text" name="name" required></label><br><br>
+    <label>メール: <input type="email" name="email" required></label><br><br>
+    <label>メッセージ:<br><textarea name="message" required></textarea></label><br><br>
+    <button type="submit">送信</button>
+  </form>
 </body>
 </html>
