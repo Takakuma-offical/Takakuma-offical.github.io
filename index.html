@@ -1,51 +1,513 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>教育機関様へ</title>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffffff; /* ← グラデーションを白背景に変更 */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      text-align: center;
-    }
-
-    button {
-      background-color: #4f46e5; /* ボタンの色はそのまま維持 */
-      border: none;
-      padding: 16px 32px;
-      border-radius: 8px;
-      font-size: 1.25rem;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #3730a3;
-      box-shadow: 0 6px 20px rgba(55, 48, 163, 0.6);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let Battle</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* アニメーション背景 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 0, 0, 0.03) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        /* グリッド背景 */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+        
+        .title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            color: #ff0000;
+            text-shadow: 
+                0 0 5px #ff0000,
+                0 0 10px #ff0000,
+                0 0 20px #ff0000;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-transform: uppercase;
+        }
+        
+        @keyframes titleGlow {
+            0% { 
+                text-shadow: 
+                    0 0 5px #ff0000,
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000;
+            }
+            100% { 
+                text-shadow: 
+                    0 0 8px #ff0000,
+                    0 0 15px #ff0000,
+                    0 0 30px #ff0000;
+            }
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, #ff0000, #cc0000, #ff0000);
+            background-size: 200% 200%;
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid #ff0000;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: buttonPulse 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 10px 30px rgba(255, 0, 0, 0.7),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            background-position: 100% 100%;
+        }
+        
+        .download-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(255, 0, 0, 0.4),
+                    inset 0 0 15px rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 20px rgba(255, 0, 0, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.15);
+            }
+        }
+        
+        /* ニュースセクション */
+        .news-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0808 100%);
+            position: relative;
+        }
+        
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .news-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .news-item {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .news-item:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .news-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+        
+        .news-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .news-headline {
+            color: #ff0000;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .news-content {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0000;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        /* パーティクル効果 */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: #ff0000;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { width: 3px; height: 3px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 2px; height: 2px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 4px; height: 4px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 2px; height: 2px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 3px; height: 3px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 2px; height: 2px; left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 4px; height: 4px; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { width: 3px; height: 3px; left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { width: 2px; height: 2px; left: 90%; animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-10vh) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .title {
+                margin-bottom: 2rem;
+            }
+            
+            .download-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <button id="downloadBtn">申し込み（無料）</button>
-  </div>
-
-  <script>
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-      window.location.href = 'From.html';
-    });
-  </script>
+    <div class="hero-section">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <div class="container">
+            <h1 class="title">Let Battle</h1>
+            <a href="download.html" class="download-btn">Download Now</a>
+        </div>
+        
+        <div class="scroll-indicator">↓</div>
+    </div>
+    
+    <div class="news-section">
+        <div class="news-container">
+            <h2 class="news-title">Latest News</h2>
+            <div class="news-grid" id="newsGrid">
+                <!-- ニュースアイテムはJavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // サンプルニュースデータ（実際のNews.jsonの代わり）
+        const sampleNews = [
+            {
+                date: "2025-08-05",
+                headline: "New Battle System Update Released!",
+                content: "We've introduced a revolutionary combat system that will change how you experience battles. Enhanced graphics, smoother animations, and more strategic gameplay await you."
+            },
+            {
+                date: "2025-08-03",
+                headline: "Player Tournament Announced",
+                content: "Join our first official tournament! Compete against players worldwide for exclusive rewards and the title of ultimate champion. Registration starts next week."
+            },
+            {
+                date: "2025-08-01",
+                headline: "Mobile Version Beta Testing",
+                content: "Good news for mobile gamers! We're starting beta testing for iOS and Android versions. Sign up now to be among the first to experience Let Battle on mobile."
+            },
+            {
+                date: "2025-07-30",
+                headline: "Community Feedback Implementation",
+                content: "Thank you for your valuable feedback! We've implemented several community-requested features including improved matchmaking and customizable controls."
+            }
+        ];
+        
+        // ニュースを表示する関数
+        function loadNews() {
+            const newsGrid = document.getElementById('newsGrid');
+            
+            sampleNews.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                
+                const date = new Date(news.date).toLocaleDateString('ja-JP', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                newsItem.innerHTML = `
+                    <div class="news-date">${date}</div>
+                    <h3 class="news-headline">${news.headline}</h3>
+                    <p class="news-content">${news.content}</p>
+                `;
+                
+                newsGrid.appendChild(newsItem);
+            });
+        }
+        
+        // 実際のNews.jsonを読み込む関数
+        async function loadNewsFromJSON() {
+            try {
+                const response = await fetch('News.json');
+                
+                // レスポンスが正常かチェック
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Content-Typeがjsonかチェック
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    console.warn('レスポンスがJSONではありません:', contentType);
+                    throw new Error('Invalid content type');
+                }
+                
+                const newsData = await response.json();
+                
+                const newsGrid = document.getElementById('newsGrid');
+                newsGrid.innerHTML = ''; // 既存のコンテンツをクリア
+                
+                newsData.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+                    
+                    const date = new Date(news['news-date']).toLocaleDateString('ja-JP', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    newsItem.innerHTML = `
+                        <div class="news-date">${date}</div>
+                        <h3 class="news-headline">${news['news-headline']}</h3>
+                        <p class="news-content">${news['news-content']}</p>
+                    `;
+                    
+                    newsGrid.appendChild(newsItem);
+                });
+                
+                console.log('ニュースの読み込みが完了しました');
+            } catch (error) {
+                console.error('ニュースの読み込みに失敗しました:', error);
+                console.log('サンプルニュースを表示します');
+                loadNews(); // フォールバックとしてサンプルニュースを表示
+            }
+        }
+        
+        // デバッグ用：JSONファイルを直接データとして埋め込む方法
+        function loadNewsFromEmbeddedData() {
+            const newsData = [
+                {
+                    "news-date": "2025-08-05",
+                    "news-headline": "ゲームサイト公開",
+                    "news-content": "Kuma-EFPSの関心を皆様に持ってもらうため新しく作りました。ここからゲームのインストールやニュースを見ることができます"
+                }
+            ];
+            
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '';
+            
+            newsData.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                
+                const date = new Date(news['news-date']).toLocaleDateString('ja-JP', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                newsItem.innerHTML = `
+                    <div class="news-date">${date}</div>
+                    <h3 class="news-headline">${news['news-headline']}</h3>
+                    <p class="news-content">${news['news-content']}</p>
+                `;
+                
+                newsGrid.appendChild(newsItem);
+            });
+        }
+        
+        // スムーズスクロール
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.news-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        
+        // ページ読み込み時にニュースを表示
+        document.addEventListener('DOMContentLoaded', () => {
+            // まずJSONファイルから読み込みを試行、失敗したら埋め込みデータを使用
+            loadNewsFromJSON();
+            
+            // デバッグ用：埋め込みデータを直接使いたい場合は以下をコメントアウト
+            // loadNewsFromEmbeddedData();
+        });
+    </script>
 </body>
 </html>
